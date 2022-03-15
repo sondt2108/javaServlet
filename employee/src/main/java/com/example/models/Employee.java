@@ -12,15 +12,27 @@ public class Employee {
 
     private String email;
 
+    private Departments departments;
+
+
     public Employee() {
     }
 
-    public Employee(int id, String fullName, String address, String phoneNumber, String email) {
+    public Employee(int id, String fullName, String address, String phoneNumber, String email, Departments departments) {
         this.id = id;
         this.fullName = fullName;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
+        this.departments = departments;
+    }
+
+    public Departments getDepartments() {
+        return departments;
+    }
+
+    public void setDepartments(Departments departments) {
+        this.departments = departments;
     }
 
     public int getId() {
@@ -61,5 +73,9 @@ public class Employee {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+
+    public void setDepartments(Object dept_id) {
     }
 }
