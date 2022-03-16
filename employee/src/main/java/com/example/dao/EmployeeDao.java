@@ -11,11 +11,10 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 public class EmployeeDao implements EmployeeInterface {
 
-    static Connection connection = JdbcConnection.getConnection();
+
 
     @Override
     public List<Employee> findAll() {
@@ -24,6 +23,7 @@ public class EmployeeDao implements EmployeeInterface {
         String sql = "Select * from employee";
         PreparedStatement statement = null;
         ResultSet resultSet = null;
+        Connection connection = JdbcConnection.getConnection();
         System.out.println("dao");
         if (connection != null) {
             try {
@@ -37,7 +37,7 @@ public class EmployeeDao implements EmployeeInterface {
                     employee.setAddress(resultSet.getString("address"));
                     employee.setPhoneNumber(resultSet.getString("phoneNumber"));
                     employee.setEmail(resultSet.getString("email"));
-                    employee.setDepartments(resultSet.getObject("dept_id"));
+                    employee.setDept_id(resultSet.getInt("dept_id"));
                     results.add(employee);
 
 
@@ -66,5 +66,136 @@ public class EmployeeDao implements EmployeeInterface {
         }
         return  results;
 
+    }
+
+    @Override
+    public List<Employee> findAll(int start, int total) {
+
+        List<Employee> results = new ArrayList<>();
+        try {
+            String sql = "Select * from employee order by id desc limit ?, ? ";
+            Connection connection = JdbcConnection.getConnection();
+            if (connection != null) {
+                PreparedStatement pst = connection.prepareStatement(sql);
+                pst.setInt(1, (start - 1) * total);
+                pst.setInt(2, total);
+                ResultSet resultSet = pst.executeQuery();
+                while (resultSet.next()) {
+                    Employee employee = new Employee();
+                    Departments departments = new Departments();
+                    employee.setId(resultSet.getInt("id"));
+                    employee.setFullName(resultSet.getString("fullname"));
+                    employee.setAddress(resultSet.getString("address"));
+                    employee.setPhoneNumber(resultSet.getString("phoneNumber"));
+                    employee.setEmail(resultSet.getString("email"));
+                    employee.setDept_id(resultSet.getInt("dept_id"));
+                    results.add(employee);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return results;
+    }
+
+    @Override
+    public boolean create(Employee employee) {
+            try {
+                String sql = "INSERT INTO employee(fullname, address, phoneNumber, email, dept_id) VALUES (?, ?, ?, ?, ?)";
+                Connection connection = JdbcConnection.getConnection();
+                if (connection != null) {
+                    PreparedStatement pst = connection.prepareStatement(sql);
+                    pst.setString(1, employee.getFullName());
+                    pst.setString(2, employee.getAddress());
+                    pst.setString(3, employee.getPhoneNumber());
+                    pst.setString(4, employee.getEmail());
+                    pst.setInt(5, employee.getDept_id());
+
+                    int result = pst.executeUpdate();
+                    if (result > 0) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                }
+
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+        return false;
+    }
+
+    @Override
+    public boolean update(Employee employee) {
+        try {
+            String sql = "UPDATE employee SET fullname= ?,address= ?,phoneNumber= ?,email= ?,dept_id= ? WHERE id = ?";
+            Connection connection = JdbcConnection.getConnection();
+            if (connection != null) {
+                PreparedStatement pst = connection.prepareStatement(sql);
+                pst.setString(1, employee.getFullName());
+                pst.setString(2, employee.getAddress());
+                pst.setString(3, employee.getPhoneNumber());
+                pst.setString(4, employee.getEmail());
+                pst.setInt(5, employee.getDept_id());
+                pst.setInt(6, employee.getId());
+
+                int result = pst.executeUpdate();
+                if (result > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return false;
+    }
+
+    @Override
+    public Employee findById(int id) {
+        Employee employee = new Employee();
+        try {
+            String sql = "SELECT * from employee e INNER JOIN departments de on e.dept_id = de.dept_id WHERE e.id = ?";
+            Connection connection = JdbcConnection.getConnection();
+            if (connection != null){
+                PreparedStatement pst = connection.prepareStatement(sql);
+                pst.setInt(1, id);
+                ResultSet resultSet = pst.executeQuery();
+                while (resultSet.next()){
+                    employee.setId(resultSet.getInt("e.id"));
+                    employee.setFullName(resultSet.getString("e.fullname"));
+                    employee.setAddress(resultSet.getString("e.address"));
+                    employee.setPhoneNumber(resultSet.getString("e.phoneNumber"));
+                    employee.setEmail(resultSet.getString("e.email"));
+                    employee.setDept_id(resultSet.getInt("de.dept_id"));
+                }
+
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return employee;
+    }
+
+    @Override
+    public boolean delete(int id) {
+        try {
+            String sql = "delete from employee Where id = ?";
+            Connection conn = JdbcConnection.getConnection();
+            if (conn != null) {
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setInt(1, id);
+                int result = pst.executeUpdate();
+                if (result > 0) {
+                    return true;
+                } else {
+                    return false;
+                }
+            }
+        } catch (Exception e) {
+        }
+        return false;
     }
 }

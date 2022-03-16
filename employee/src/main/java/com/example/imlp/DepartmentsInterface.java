@@ -8,4 +8,9 @@ import java.util.List;
 
 public interface DepartmentsInterface {
     List<Departments> findAll();
+    List<Departments> findAll(int start, int total);
+    boolean create(Departments departments);
+    boolean update(Departments departments);
+    Departments findById(int id);
+    boolean delete(int id);
 }
