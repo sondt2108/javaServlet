@@ -7,4 +7,9 @@ import java.util.List;
 public interface EmployeeServiceInterface {
 
     List<Employee> findAll();
+    List<Employee> findAll(int start, int total);
+    boolean create(Employee employee);
+    boolean update(Employee employee);
+    boolean delete(int id);
+    Employee findById(int id);
  }
