@@ -12,5 +12,6 @@ public interface EmployeeInterface {
     boolean update(Employee employee);
     Employee findById(int id);
     boolean delete(int id);
-
+    int countEmployee(String txtSearch);
+    List<Employee> search(String txtSearch, int start, int total);
 }

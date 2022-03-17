@@ -44,7 +44,7 @@ pageEncoding="UTF-8"%>
             </li>
         </ul>
         <form action="search-employee" method="post" class="form-inline my-2 my-lg-0">
-            <input class="form-control mr-sm-2" name="txtSearch" type="search" placeholder="Search" aria-label="Search">
+            <input class="form-control mr-sm-2" name="txtSearch" type="search" value="${txtSearch}" aria-label="Search">
             <button name="action" value="search" class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
         </form>
     </div>
@@ -52,71 +52,71 @@ pageEncoding="UTF-8"%>
 <br/>
 <div class="container">
     <div class="row">
-        <div class="col-lg-4">
-            <h2>Create employee</h2>
-            <form  action="list-employee" method="post" >
-                <div class="form-group">
-                    <label for="exampleInputFullName">Full name</label>
-                    <input type="text" name ="fullname" class="form-control" id="exampleInputFullName" placeholder="Enter full name" required>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputAddress">Address</label>
-                    <input type="text" name ="address" class="form-control" id="exampleInputAddress" placeholder="Enter Address" required>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPhoneNumber">Phone number</label>
-                    <input type="text" name ="phoneNumber" class="form-control" id="exampleInputPhoneNumber" placeholder="Enter phone number" required>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label>
-                    <input type="text" name ="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" required>
-                </div>
-                <div class="form-group">
-                    <label>Departments :</label>
-                    <select name="dept" class="custom-select" required>
-                        <option selected>Select department</option>
-                        <c:forEach items="${dept}" var="dept">
-                            <option value="${dept.getId()}">${dept.getDeptName()}</option>
-                        </c:forEach>
-                    </select>
-                </div>
+<%--        <div class="col-lg-4">--%>
+<%--            <h2>Create employee</h2>--%>
+<%--            <form  action="list-employee" method="post" >--%>
+<%--                <div class="form-group">--%>
+<%--                    <label for="exampleInputFullName">Full name</label>--%>
+<%--                    <input type="text" name ="fullname" class="form-control" id="exampleInputFullName" placeholder="Enter full name" required>--%>
+<%--                </div>--%>
+<%--                <div class="form-group">--%>
+<%--                    <label for="exampleInputAddress">Address</label>--%>
+<%--                    <input type="text" name ="address" class="form-control" id="exampleInputAddress" placeholder="Enter Address" required>--%>
+<%--                </div>--%>
+<%--                <div class="form-group">--%>
+<%--                    <label for="exampleInputPhoneNumber">Phone number</label>--%>
+<%--                    <input type="text" name ="phoneNumber" class="form-control" id="exampleInputPhoneNumber" placeholder="Enter phone number" required>--%>
+<%--                </div>--%>
+<%--                <div class="form-group">--%>
+<%--                    <label for="exampleInputEmail1">Email</label>--%>
+<%--                    <input type="text" name ="email" class="form-control" id="exampleInputEmail1" placeholder="Enter email" required>--%>
+<%--                </div>--%>
+<%--                <div class="form-group">--%>
+<%--                    <label>Departments :</label>--%>
+<%--                    <select name="dept" class="custom-select" required>--%>
+<%--                        <option selected>Select department</option>--%>
+<%--                        <c:forEach items="${dept}" var="dept">--%>
+<%--                            <option value="${dept.getId()}">${dept.getDeptName()}</option>--%>
+<%--                        </c:forEach>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
 
-                <button type="submit" name="action" value="create" class="btn btn-primary">Create</button>
-            </form>
-            <hr/>
-            <h2>Update employee</h2>
-            <form  action="list-employee" method="post" >
-                <div class="form-group">
-                    <label for="exampleInputFullName">Full name</label>
-                    <input type="hidden" name ="id" class="form-control"  value="${detailEmployee.getId()}" >
-                    <input type="text" name ="fullname" class="form-control"  value="${detailEmployee.getFullName()}" required>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputAddress">Address</label>
-                    <input type="text" name ="address" class="form-control" value="${detailEmployee.getAddress()}"  required>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputPhoneNumber">Phone number</label>
-                    <input type="text" name ="phoneNumber" class="form-control"  value="${detailEmployee.getPhoneNumber()}" required>
-                </div>
-                <div class="form-group">
-                    <label for="exampleInputEmail1">Email</label>
-                    <input type="text" name ="email" class="form-control" value="${detailEmployee.getEmail()}" required>
-                </div>
-                <div class="form-group">
-                    <label>Departments :</label>
-                    <select name="dept" class="custom-select" required>
-                        <option selected>Select department</option>
-                        <c:forEach items="${dept}" var="dept">
-                            <option value="${dept.getId()}" ${dept.getId() == detailEmployee.getDept_id() ? 'selected="selected"' : ''}>${dept.getDeptName()}</option>
-                        </c:forEach>
-                    </select>
-                </div>
+<%--                <button type="submit" name="action" value="create" class="btn btn-primary">Create</button>--%>
+<%--            </form>--%>
+<%--            <hr/>--%>
+<%--            <h2>Update employee</h2>--%>
+<%--            <form  action="list-employee" method="post" >--%>
+<%--                <div class="form-group">--%>
+<%--                    <label for="exampleInputFullName">Full name</label>--%>
+<%--                    <input type="hidden" name ="id" class="form-control"  value="${detailEmployee.getId()}" >--%>
+<%--                    <input type="text" name ="fullname" class="form-control"  value="${detailEmployee.getFullName()}" required>--%>
+<%--                </div>--%>
+<%--                <div class="form-group">--%>
+<%--                    <label for="exampleInputAddress">Address</label>--%>
+<%--                    <input type="text" name ="address" class="form-control" value="${detailEmployee.getAddress()}"  required>--%>
+<%--                </div>--%>
+<%--                <div class="form-group">--%>
+<%--                    <label for="exampleInputPhoneNumber">Phone number</label>--%>
+<%--                    <input type="text" name ="phoneNumber" class="form-control"  value="${detailEmployee.getPhoneNumber()}" required>--%>
+<%--                </div>--%>
+<%--                <div class="form-group">--%>
+<%--                    <label for="exampleInputEmail1">Email</label>--%>
+<%--                    <input type="text" name ="email" class="form-control" value="${detailEmployee.getEmail()}" required>--%>
+<%--                </div>--%>
+<%--                <div class="form-group">--%>
+<%--                    <label>Departments :</label>--%>
+<%--                    <select name="dept" class="custom-select" required>--%>
+<%--                        <option selected>Select department</option>--%>
+<%--                        <c:forEach items="${dept}" var="dept">--%>
+<%--                            <option value="${dept.getId()}" ${dept.getId() == detailEmployee.getDept_id() ? 'selected="selected"' : ''}>${dept.getDeptName()}</option>--%>
+<%--                        </c:forEach>--%>
+<%--                    </select>--%>
+<%--                </div>--%>
 
-                <button type="submit" name="action" value="update" class="btn btn-primary">Update</button>
-            </form>
-        </div>
-        <div class="col-lg-8">
+<%--                <button type="submit" name="action" value="update" class="btn btn-primary">Update</button>--%>
+<%--            </form>--%>
+<%--        </div>--%>
+        <div class="col-lg-12">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -153,8 +153,8 @@ pageEncoding="UTF-8"%>
             </table>
             <ul class="pagination justify-content-end">
 
-                <c:forEach var="i" begin="1" end="3">
-                    <li class="page-item ${i == currentPage ? "active" : ""  }"><a class="page-link" href="list-employee?page=${i}">${i}</a></li>
+                <c:forEach var="i" begin="1" end="${endPage}">
+                    <li class="page-item ${i == currentPage ? "active" : ""  }"><a class="page-link" href="search-employee?page=${i}&txtSearch=${txtSearch}">${i}</a></li>
                 </c:forEach>
 
             </ul>

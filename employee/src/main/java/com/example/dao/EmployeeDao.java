@@ -99,6 +99,36 @@ public class EmployeeDao implements EmployeeInterface {
     }
 
     @Override
+    public List<Employee> search(String txtSearch, int start, int total) {
+        List<Employee> results = new ArrayList<>();
+        try {
+            String sql = "SELECT * FROM employee WHERE fullname LIKE ? ORDER BY id DESC LIMIT ?,?";
+            Connection connection = JdbcConnection.getConnection();
+            if (connection != null) {
+                PreparedStatement pst = connection.prepareStatement(sql);
+                pst.setString(1, "%" + txtSearch +"%");
+                pst.setInt(2, (start - 1) * total);
+                pst.setInt(3, total);
+                ResultSet resultSet = pst.executeQuery();
+                while (resultSet.next()) {
+                    Employee employee = new Employee();
+                    Departments departments = new Departments();
+                    employee.setId(resultSet.getInt("id"));
+                    employee.setFullName(resultSet.getString("fullname"));
+                    employee.setAddress(resultSet.getString("address"));
+                    employee.setPhoneNumber(resultSet.getString("phoneNumber"));
+                    employee.setEmail(resultSet.getString("email"));
+                    employee.setDept_id(resultSet.getInt("dept_id"));
+                    results.add(employee);
+                }
+            }
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return results;
+    }
+
+    @Override
     public boolean create(Employee employee) {
             try {
                 String sql = "INSERT INTO employee(fullname, address, phoneNumber, email, dept_id) VALUES (?, ?, ?, ?, ?)";
@@ -197,5 +227,25 @@ public class EmployeeDao implements EmployeeInterface {
         } catch (Exception e) {
         }
         return false;
+    }
+
+    @Override
+    public int countEmployee(String txtSearch) {
+        try {
+            String sql = "SELECT COUNT(*) FROM employee WHERE fullname LIKE ?";
+            Connection conn = JdbcConnection.getConnection();
+            if (conn != null){
+                PreparedStatement pst = conn.prepareStatement(sql);
+                pst.setString(1, "%" + txtSearch +"%");
+                ResultSet resultSet = pst.executeQuery();
+                while (resultSet.next()){
+
+                    return resultSet.getInt(1);
+                }
+            }
+        }catch (Exception e) {
+
+        }
+        return 0;
     }
 }
