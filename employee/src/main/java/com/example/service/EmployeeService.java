@@ -53,4 +53,16 @@ public class EmployeeService implements EmployeeServiceInterface{
 
         return employeeDao.delete(id);
     }
+
+    @Override
+    public int searchEmployee(String txtSearch) {
+
+        return employeeDao.countEmployee(txtSearch);
+    }
+
+    @Override
+    public List<Employee> search(String txtSearch, int start, int total) {
+
+        return employeeDao.search(txtSearch, start, total);
+    }
 }
