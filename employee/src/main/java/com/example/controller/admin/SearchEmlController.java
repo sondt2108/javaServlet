@@ -43,6 +43,7 @@ public class SearchEmlController extends HttpServlet {
         int currentPage = 1;
         if (page != null) {
             currentPage = Integer.parseInt(page);
+            System.out.println("-----------------------------currentPage"+ currentPage);
             request.setAttribute("epl", employeeService.search(txtSearch,currentPage, 2));
             request.setAttribute("currentPage", currentPage);
             request.setAttribute("txtSearch", txtSearch);

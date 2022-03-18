@@ -52,7 +52,7 @@ pageEncoding="UTF-8"%>
 <br/>
 <div class="container">
     <div class="row">
-        <div class="col-lg-4">
+        <div class="col-lg-3">
             <h2>Create employee</h2>
             <form  action="list-employee" method="post" >
                 <div class="form-group">
@@ -116,7 +116,7 @@ pageEncoding="UTF-8"%>
                 <button type="submit" name="action" value="update" class="btn btn-primary">Update</button>
             </form>
         </div>
-        <div class="col-lg-8">
+        <div class="col-lg-9">
             <table class="table table-striped">
                 <thead>
                     <tr>
@@ -125,6 +125,7 @@ pageEncoding="UTF-8"%>
                         <th scope="col">Address</th>
                         <th scope="col">Phone number</th>
                         <th scope="col">Email</th>
+                        <th scope="col">Department</th>
                         <th scope="col">Action</th>
                     </tr>
                 </thead>
@@ -136,6 +137,7 @@ pageEncoding="UTF-8"%>
                             <td>${epl.getAddress()}</td>
                             <td>${epl.getPhoneNumber()}</td>
                             <td>${epl.getEmail()}</td>
+                            <td>${epl.getDept_name()}</td>
                             <td><a href="?id=${epl.getId()}" class="btn btn-outline-info" >
                                 <i class="fa-solid fa-pen"></i>
                             </a>
