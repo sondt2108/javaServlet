@@ -73,8 +73,8 @@ public class EmployeeDao implements EmployeeInterface {
 
         List<Employee> results = new ArrayList<>();
         try {
-            String sql = "Select * from employee order by id desc limit ?, ? ";
-            Connection connection = JdbcConnection.getConnection();
+            String sql = "SELECT e.id, e.fullname, e.address, e.phoneNumber, e.email, d.dept_name FROM employee e INNER JOIN departments d ON e.dept_id = d.dept_id order by e.id desc limit ?, ? ";
+            Connection connection = JdbcConnection.getConnection(); // tách connection
             if (connection != null) {
                 PreparedStatement pst = connection.prepareStatement(sql);
                 pst.setInt(1, (start - 1) * total);
@@ -83,12 +83,12 @@ public class EmployeeDao implements EmployeeInterface {
                 while (resultSet.next()) {
                     Employee employee = new Employee();
                     Departments departments = new Departments();
-                    employee.setId(resultSet.getInt("id"));
-                    employee.setFullName(resultSet.getString("fullname"));
-                    employee.setAddress(resultSet.getString("address"));
-                    employee.setPhoneNumber(resultSet.getString("phoneNumber"));
-                    employee.setEmail(resultSet.getString("email"));
-                    employee.setDept_id(resultSet.getInt("dept_id"));
+                    employee.setId(resultSet.getInt("e.id"));
+                    employee.setFullName(resultSet.getString("e.fullname"));
+                    employee.setAddress(resultSet.getString("e.address"));
+                    employee.setPhoneNumber(resultSet.getString("e.phoneNumber"));
+                    employee.setEmail(resultSet.getString("e.email"));
+                    employee.setDept_name(resultSet.getString("d.dept_name"));
                     results.add(employee);
                 }
             }
